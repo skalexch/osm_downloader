@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>OSM Downloader</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map and Selection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="map-container" id="mapid">
+        {{ map | safe }}
+    </div>
+    
+    <div class="form-container">
+        <form id="bboxForm" method="GET" action="/process">
+            <label for="value">Select a value:</label>
+            <select name="value" id="value">
+                <option value="{{values[0]}}" selected>{{values[0]}}</option>
+                {% for value in values[1:] %}
+                    <option value="{{value}}">{{value}}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" id="ne_lat" name="ne_lat">
+            <input type="hidden" id="ne_lng" name="ne_lng">
+            <input type="hidden" id="sw_lat" name="sw_lat">
+            <input type="hidden" id="sw_lng" name="sw_lng">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+<hr>
+
+<script type="text/javascript" src="{{ url_for('static', filename='map_event.js') }}"></script>
+
+</body>
+</html>

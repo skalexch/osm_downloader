@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>OSM Downloader</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map and Tables</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='output_style.css') }}">
+</head>
+<body>
+<div class="main-container">
+    <div class="map-container" id="mapid">
+        {{ map | safe }}
+    </div>
+    <div class="right-side">
+        <div class="download-container">
+            <form action="{{ url_for('download') }}" method="get">
+                <button type="submit" class="btn">Download CSV</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="tables-container">
+    {% for table in tables %}
+    <div class="table-section">
+        <div class="table-title">Table for {{ title }}</div>
+        <div class="table-wrapper">
+            {{ table | safe }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
